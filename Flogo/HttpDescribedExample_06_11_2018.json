@@ -1,0 +1,129 @@
+{
+  "name": "TryHttp",
+  "type": "flogo:app",
+  "version": "0.0.1",
+  "appModel": "1.0.0",
+  "triggers": [
+    {
+      "id": "new_http_trigger",
+      "ref": "github.com/TIBCOSoftware/flogo-contrib/trigger/rest",
+      "name": "NewHttpTrigger",
+      "description": "Just a simple HTTP",
+      "settings": {
+        "port": 57112
+      },
+      "handlers": [
+        {
+          "action": {
+            "ref": "github.com/TIBCOSoftware/flogo-contrib/action/flow",
+            "data": {
+              "flowURI": "res://flow:primer"
+            },
+            "mappings": {
+              "input": [
+                {
+                  "mapTo": "ime",
+                  "type": "assign",
+                  "value": "$.queryParams.ime"
+                },
+                {
+                  "mapTo": "pozdrav",
+                  "type": "assign",
+                  "value": "$.queryParams.pozdrav"
+                }
+              ],
+              "output": [
+                {
+                  "mapTo": "code",
+                  "type": "literal",
+                  "value": 200
+                },
+                {
+                  "mapTo": "data",
+                  "type": "assign",
+                  "value": "$.odgovor"
+                }
+              ]
+            }
+          },
+          "settings": {
+            "method": "GET",
+            "path": "/flogo"
+          }
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "id": "flow:primer",
+      "data": {
+        "name": "Primer",
+        "metadata": {
+          "input": [
+            {
+              "name": "ime",
+              "type": "string"
+            },
+            {
+              "name": "pozdrav",
+              "type": "string"
+            }
+          ],
+          "output": [
+            {
+              "name": "odgovor",
+              "type": "string"
+            }
+          ]
+        },
+        "tasks": [
+          {
+            "id": "log_2",
+            "name": "Log Message",
+            "description": "Simple Log Activity",
+            "activity": {
+              "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/log",
+              "input": {
+                "flowInfo": "false",
+                "addToFlow": "true"
+              },
+              "mappings": {
+                "input": [
+                  {
+                    "type": "expression",
+                    "value": "string.concat($flow.pozdrav, \", \", $flow.ime)",
+                    "mapTo": "message"
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "id": "actreply_3",
+            "name": "Reply To Trigger",
+            "description": "Simple Reply Activity",
+            "activity": {
+              "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/actreply",
+              "input": {
+                "mappings": [
+                  {
+                    "mapTo": "odgovor",
+                    "type": "assign",
+                    "value": "$activity[log_2].message"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "links": [
+          {
+            "from": "log_2",
+            "to": "actreply_3"
+          }
+        ]
+      }
+    }
+  ]
+}

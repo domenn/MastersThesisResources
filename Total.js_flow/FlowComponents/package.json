@@ -1,0 +1,19 @@
+{
+  "name": "flow-component-sqlite",
+  "version": "1.0.0",
+  "description": "Read and write Sqlite database, for TotalJS flow",
+  "main": "sqlite.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "total.js",
+    "flow",
+    "sqlite"
+  ],
+  "dependencies": {
+    "sqlite3": "^4.0.3"
+  },
+  "author": "Domen Mori",
+  "license": "ISC"
+}

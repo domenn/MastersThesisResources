@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<template encoding-version="1.2">
+    <description>Mqtt and example .. helloWorld (fileWriter)</description>
+    <groupId>1bbe4e1f-0167-1000-eeaa-789dbb306609</groupId>
+    <name>NifiFlowFinal2</name>
+    <snippet>
+        <connections>
+            <id>2f40ae54-5cde-3274-0000-000000000000</id>
+            <parentGroupId>b22699bd-332e-3d06-0000-000000000000</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>b22699bd-332e-3d06-0000-000000000000</groupId>
+                <id>1356148e-dfee-3fa1-0000-000000000000</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+            <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+            <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+            <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+            <name></name>
+            <prioritizers>org.apache.nifi.prioritizer.FirstInFirstOutPrioritizer</prioritizers>
+            <selectedRelationships>Message</selectedRelationships>
+            <source>
+                <groupId>b22699bd-332e-3d06-0000-000000000000</groupId>
+                <id>e5a0b959-80b8-388a-0000-000000000000</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>3ac7808f-1988-3464-0000-000000000000</id>
+            <parentGroupId>b22699bd-332e-3d06-0000-000000000000</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>b22699bd-332e-3d06-0000-000000000000</groupId>
+                <id>00e17d08-9a5a-328c-0000-000000000000</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+            <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+            <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+            <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+            <name>WhatIsName</name>
+            <prioritizers>org.apache.nifi.prioritizer.FirstInFirstOutPrioritizer</prioritizers>
+            <selectedRelationships>success</selectedRelationships>
+            <source>
+                <groupId>b22699bd-332e-3d06-0000-000000000000</groupId>
+                <id>71639a81-82ac-3f42-0000-000000000000</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <connections>
+            <id>aff55fd2-5864-3e55-0000-000000000000</id>
+            <parentGroupId>b22699bd-332e-3d06-0000-000000000000</parentGroupId>
+            <backPressureDataSizeThreshold>1 GB</backPressureDataSizeThreshold>
+            <backPressureObjectThreshold>10000</backPressureObjectThreshold>
+            <destination>
+                <groupId>b22699bd-332e-3d06-0000-000000000000</groupId>
+                <id>c7dd98a8-4893-36d3-0000-000000000000</id>
+                <type>PROCESSOR</type>
+            </destination>
+            <flowFileExpiration>0 sec</flowFileExpiration>
+            <labelIndex>1</labelIndex>
+            <loadBalanceCompression>DO_NOT_COMPRESS</loadBalanceCompression>
+            <loadBalancePartitionAttribute></loadBalancePartitionAttribute>
+            <loadBalanceStatus>LOAD_BALANCE_NOT_CONFIGURED</loadBalanceStatus>
+            <loadBalanceStrategy>DO_NOT_LOAD_BALANCE</loadBalanceStrategy>
+            <name></name>
+            <prioritizers>org.apache.nifi.prioritizer.FirstInFirstOutPrioritizer</prioritizers>
+            <selectedRelationships>matched</selectedRelationships>
+            <source>
+                <groupId>b22699bd-332e-3d06-0000-000000000000</groupId>
+                <id>1356148e-dfee-3fa1-0000-000000000000</id>
+                <type>PROCESSOR</type>
+            </source>
+            <zIndex>0</zIndex>
+        </connections>
+        <processors>
+            <id>00e17d08-9a5a-328c-0000-000000000000</id>
+            <parentGroupId>b22699bd-332e-3d06-0000-000000000000</parentGroupId>
+            <position>
+                <x>791.8299401298653</x>
+                <y>476.27740560216057</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.8.0</version>
+            </bundle>
+            <config>
+                <bulletinLevel>DEBUG</bulletinLevel>
+                <comments></comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <descriptors>
+                    <entry>
+                        <key>Group</key>
+                        <value>
+                            <name>Group</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Owner</key>
+                        <value>
+                            <name>Owner</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Create Missing Directories</key>
+                        <value>
+                            <name>Create Missing Directories</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Permissions</key>
+                        <value>
+                            <name>Permissions</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Maximum File Count</key>
+                        <value>
+                            <name>Maximum File Count</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Last Modified Time</key>
+                        <value>
+                            <name>Last Modified Time</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Directory</key>
+                        <value>
+                            <name>Directory</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Conflict Resolution Strategy</key>
+                        <value>
+                            <name>Conflict Resolution Strategy</name>
+                        </value>
+                    </entry>
+                </descriptors>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>Group</key>
+                    </entry>
+                    <entry>
+                        <key>Owner</key>
+                    </entry>
+                    <entry>
+                        <key>Create Missing Directories</key>
+                        <value>true</value>
+                    </entry>
+                    <entry>
+                        <key>Permissions</key>
+                    </entry>
+                    <entry>
+                        <key>Maximum File Count</key>
+                    </entry>
+                    <entry>
+                        <key>Last Modified Time</key>
+                    </entry>
+                    <entry>
+                        <key>Directory</key>
+                        <value>C:\Users\domen\Desktop\sandbox\NifiWorkdir</value>
+                    </entry>
+                    <entry>
+                        <key>Conflict Resolution Strategy</key>
+                        <value>replace</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <executionNodeRestricted>false</executionNodeRestricted>
+            <name>PutFile</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <state>STOPPED</state>
+            <style/>
+            <type>org.apache.nifi.processors.standard.PutFile</type>
+        </processors>
+        <processors>
+            <id>1356148e-dfee-3fa1-0000-000000000000</id>
+            <parentGroupId>b22699bd-332e-3d06-0000-000000000000</parentGroupId>
+            <position>
+                <x>0.0</x>
+                <y>296.9221575657508</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.8.0</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments></comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <descriptors>
+                    <entry>
+                        <key>Destination</key>
+                        <value>
+                            <name>Destination</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>rtopic</key>
+                        <value>
+                            <name>rtopic</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>filename</key>
+                        <value>
+                            <name>filename</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Return Type</key>
+                        <value>
+                            <name>Return Type</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>mqttcontent</key>
+                        <value>
+                            <name>mqttcontent</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Null Value Representation</key>
+                        <value>
+                            <name>Null Value Representation</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Path Not Found Behavior</key>
+                        <value>
+                            <name>Path Not Found Behavior</name>
+                        </value>
+                    </entry>
+                </descriptors>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>Destination</key>
+                        <value>flowfile-attribute</value>
+                    </entry>
+                    <entry>
+                        <key>rtopic</key>
+                        <value>$.respond_to</value>
+                    </entry>
+                    <entry>
+                        <key>filename</key>
+                        <value>mqtt_incomming.txt</value>
+                    </entry>
+                    <entry>
+                        <key>Return Type</key>
+                        <value>auto-detect</value>
+                    </entry>
+                    <entry>
+                        <key>mqttcontent</key>
+                        <value>$.payload</value>
+                    </entry>
+                    <entry>
+                        <key>Null Value Representation</key>
+                        <value>empty string</value>
+                    </entry>
+                    <entry>
+                        <key>Path Not Found Behavior</key>
+                        <value>ignore</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <executionNodeRestricted>false</executionNodeRestricted>
+            <name>EvaluateJsonPath</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>matched</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>unmatched</name>
+            </relationships>
+            <state>RUNNING</state>
+            <style/>
+            <type>org.apache.nifi.processors.standard.EvaluateJsonPath</type>
+        </processors>
+        <processors>
+            <id>71639a81-82ac-3f42-0000-000000000000</id>
+            <parentGroupId>b22699bd-332e-3d06-0000-000000000000</parentGroupId>
+            <position>
+                <x>689.7021756108261</x>
+                <y>93.48700084799293</y>
+            </position>
+            <bundle>
+                <artifact>nifi-standard-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.8.0</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments></comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <descriptors>
+                    <entry>
+                        <key>character-set</key>
+                        <value>
+                            <name>character-set</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>File Size</key>
+                        <value>
+                            <name>File Size</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>generate-ff-custom-text</key>
+                        <value>
+                            <name>generate-ff-custom-text</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Batch Size</key>
+                        <value>
+                            <name>Batch Size</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Unique FlowFiles</key>
+                        <value>
+                            <name>Unique FlowFiles</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Data Format</key>
+                        <value>
+                            <name>Data Format</name>
+                        </value>
+                    </entry>
+                </descriptors>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>character-set</key>
+                        <value>UTF-8</value>
+                    </entry>
+                    <entry>
+                        <key>File Size</key>
+                        <value>260B</value>
+                    </entry>
+                    <entry>
+                        <key>generate-ff-custom-text</key>
+                    </entry>
+                    <entry>
+                        <key>Batch Size</key>
+                        <value>1</value>
+                    </entry>
+                    <entry>
+                        <key>Unique FlowFiles</key>
+                        <value>false</value>
+                    </entry>
+                    <entry>
+                        <key>Data Format</key>
+                        <value>Text</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>2 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <executionNodeRestricted>false</executionNodeRestricted>
+            <name>GenerateFlowFile</name>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <state>STOPPED</state>
+            <style/>
+            <type>org.apache.nifi.processors.standard.GenerateFlowFile</type>
+        </processors>
+        <processors>
+            <id>c7dd98a8-4893-36d3-0000-000000000000</id>
+            <parentGroupId>b22699bd-332e-3d06-0000-000000000000</parentGroupId>
+            <position>
+                <x>246.241927345543</x>
+                <y>593.5943288414949</y>
+            </position>
+            <bundle>
+                <artifact>nifi-mqtt-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.8.0</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments></comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <descriptors>
+                    <entry>
+                        <key>Client ID</key>
+                        <value>
+                            <name>Client ID</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Last Will QoS Level</key>
+                        <value>
+                            <name>Last Will QoS Level</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Connection Timeout (seconds)</key>
+                        <value>
+                            <name>Connection Timeout (seconds)</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Broker URI</key>
+                        <value>
+                            <name>Broker URI</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>SSL Context Service</key>
+                        <value>
+                            <identifiesControllerService>org.apache.nifi.ssl.SSLContextService</identifiesControllerService>
+                            <name>SSL Context Service</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Username</key>
+                        <value>
+                            <name>Username</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Session state</key>
+                        <value>
+                            <name>Session state</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Quality of Service(QoS)</key>
+                        <value>
+                            <name>Quality of Service(QoS)</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Last Will Message</key>
+                        <value>
+                            <name>Last Will Message</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Last Will Topic</key>
+                        <value>
+                            <name>Last Will Topic</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Topic</key>
+                        <value>
+                            <name>Topic</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>MQTT Specification Version</key>
+                        <value>
+                            <name>MQTT Specification Version</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Keep Alive Interval (seconds)</key>
+                        <value>
+                            <name>Keep Alive Interval (seconds)</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Password</key>
+                        <value>
+                            <name>Password</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Last Will Retain</key>
+                        <value>
+                            <name>Last Will Retain</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Retain Message</key>
+                        <value>
+                            <name>Retain Message</name>
+                        </value>
+                    </entry>
+                </descriptors>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>Client ID</key>
+                        <value>nificpub</value>
+                    </entry>
+                    <entry>
+                        <key>Last Will QoS Level</key>
+                    </entry>
+                    <entry>
+                        <key>Connection Timeout (seconds)</key>
+                        <value>30</value>
+                    </entry>
+                    <entry>
+                        <key>Broker URI</key>
+                        <value>tcp://127.0.0.1:1883</value>
+                    </entry>
+                    <entry>
+                        <key>SSL Context Service</key>
+                    </entry>
+                    <entry>
+                        <key>Username</key>
+                    </entry>
+                    <entry>
+                        <key>Session state</key>
+                        <value>true</value>
+                    </entry>
+                    <entry>
+                        <key>Quality of Service(QoS)</key>
+                        <value>2</value>
+                    </entry>
+                    <entry>
+                        <key>Last Will Message</key>
+                    </entry>
+                    <entry>
+                        <key>Last Will Topic</key>
+                    </entry>
+                    <entry>
+                        <key>Topic</key>
+                        <value>${rtopic}</value>
+                    </entry>
+                    <entry>
+                        <key>MQTT Specification Version</key>
+                        <value>0</value>
+                    </entry>
+                    <entry>
+                        <key>Keep Alive Interval (seconds)</key>
+                        <value>60</value>
+                    </entry>
+                    <entry>
+                        <key>Password</key>
+                    </entry>
+                    <entry>
+                        <key>Last Will Retain</key>
+                    </entry>
+                    <entry>
+                        <key>Retain Message</key>
+                        <value>false</value>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <executionNodeRestricted>false</executionNodeRestricted>
+            <name>PublishMQTT</name>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>failure</name>
+            </relationships>
+            <relationships>
+                <autoTerminate>true</autoTerminate>
+                <name>success</name>
+            </relationships>
+            <state>RUNNING</state>
+            <style/>
+            <type>org.apache.nifi.processors.mqtt.PublishMQTT</type>
+        </processors>
+        <processors>
+            <id>e5a0b959-80b8-388a-0000-000000000000</id>
+            <parentGroupId>b22699bd-332e-3d06-0000-000000000000</parentGroupId>
+            <position>
+                <x>138.47864496859097</x>
+                <y>0.0</y>
+            </position>
+            <bundle>
+                <artifact>nifi-mqtt-nar</artifact>
+                <group>org.apache.nifi</group>
+                <version>1.8.0</version>
+            </bundle>
+            <config>
+                <bulletinLevel>WARN</bulletinLevel>
+                <comments></comments>
+                <concurrentlySchedulableTaskCount>1</concurrentlySchedulableTaskCount>
+                <descriptors>
+                    <entry>
+                        <key>Max Queue Size</key>
+                        <value>
+                            <name>Max Queue Size</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Client ID</key>
+                        <value>
+                            <name>Client ID</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Last Will QoS Level</key>
+                        <value>
+                            <name>Last Will QoS Level</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Connection Timeout (seconds)</key>
+                        <value>
+                            <name>Connection Timeout (seconds)</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Broker URI</key>
+                        <value>
+                            <name>Broker URI</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>SSL Context Service</key>
+                        <value>
+                            <identifiesControllerService>org.apache.nifi.ssl.SSLContextService</identifiesControllerService>
+                            <name>SSL Context Service</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Username</key>
+                        <value>
+                            <name>Username</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Session state</key>
+                        <value>
+                            <name>Session state</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Quality of Service(QoS)</key>
+                        <value>
+                            <name>Quality of Service(QoS)</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Last Will Message</key>
+                        <value>
+                            <name>Last Will Message</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Last Will Topic</key>
+                        <value>
+                            <name>Last Will Topic</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Topic Filter</key>
+                        <value>
+                            <name>Topic Filter</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>MQTT Specification Version</key>
+                        <value>
+                            <name>MQTT Specification Version</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Keep Alive Interval (seconds)</key>
+                        <value>
+                            <name>Keep Alive Interval (seconds)</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Password</key>
+                        <value>
+                            <name>Password</name>
+                        </value>
+                    </entry>
+                    <entry>
+                        <key>Last Will Retain</key>
+                        <value>
+                            <name>Last Will Retain</name>
+                        </value>
+                    </entry>
+                </descriptors>
+                <executionNode>ALL</executionNode>
+                <lossTolerant>false</lossTolerant>
+                <penaltyDuration>30 sec</penaltyDuration>
+                <properties>
+                    <entry>
+                        <key>Max Queue Size</key>
+                        <value>8</value>
+                    </entry>
+                    <entry>
+                        <key>Client ID</key>
+                        <value>nific</value>
+                    </entry>
+                    <entry>
+                        <key>Last Will QoS Level</key>
+                    </entry>
+                    <entry>
+                        <key>Connection Timeout (seconds)</key>
+                        <value>30</value>
+                    </entry>
+                    <entry>
+                        <key>Broker URI</key>
+                        <value>tcp://127.0.0.1:1883</value>
+                    </entry>
+                    <entry>
+                        <key>SSL Context Service</key>
+                    </entry>
+                    <entry>
+                        <key>Username</key>
+                    </entry>
+                    <entry>
+                        <key>Session state</key>
+                        <value>true</value>
+                    </entry>
+                    <entry>
+                        <key>Quality of Service(QoS)</key>
+                        <value>2</value>
+                    </entry>
+                    <entry>
+                        <key>Last Will Message</key>
+                    </entry>
+                    <entry>
+                        <key>Last Will Topic</key>
+                    </entry>
+                    <entry>
+                        <key>Topic Filter</key>
+                        <value>tnifis</value>
+                    </entry>
+                    <entry>
+                        <key>MQTT Specification Version</key>
+                        <value>0</value>
+                    </entry>
+                    <entry>
+                        <key>Keep Alive Interval (seconds)</key>
+                        <value>60</value>
+                    </entry>
+                    <entry>
+                        <key>Password</key>
+                    </entry>
+                    <entry>
+                        <key>Last Will Retain</key>
+                    </entry>
+                </properties>
+                <runDurationMillis>0</runDurationMillis>
+                <schedulingPeriod>0 sec</schedulingPeriod>
+                <schedulingStrategy>TIMER_DRIVEN</schedulingStrategy>
+                <yieldDuration>1 sec</yieldDuration>
+            </config>
+            <executionNodeRestricted>false</executionNodeRestricted>
+            <name>ConsumeMQTT</name>
+            <relationships>
+                <autoTerminate>false</autoTerminate>
+                <name>Message</name>
+            </relationships>
+            <state>RUNNING</state>
+            <style/>
+            <type>org.apache.nifi.processors.mqtt.ConsumeMQTT</type>
+        </processors>
+    </snippet>
+    <timestamp>11/16/2018 10:38:33 CET</timestamp>
+</template>

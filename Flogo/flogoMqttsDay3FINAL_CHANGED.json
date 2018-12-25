@@ -1,0 +1,124 @@
+{
+  "name": "MyFlogoApp (1)",
+  "type": "flogo:app",
+  "version": "0.0.1",
+  "appModel": "1.0.0",
+  "triggers": [
+    {
+      "id": "receive_mqtt_message",
+      "ref": "github.com/TIBCOSoftware/flogo-contrib/trigger/mqtt",
+      "name": "Receive MQTT Message",
+      "description": "Simple MQTT Trigger",
+      "settings": {
+        "broker": "tcp://localhost:1883",
+        "id": "floSrv",
+        "qos": 2,
+        "cleansess": true
+      },
+      "handlers": [
+        {
+          "action": {
+            "ref": "github.com/TIBCOSoftware/flogo-contrib/action/flow",
+            "data": {
+              "flowURI": "res://flow:mqtt_item"
+            },
+            "mappings": {
+              "input": [
+                {
+                  "mapTo": "mqttMsg",
+                  "type": "assign",
+                  "value": "$.message"
+                }
+              ]
+            }
+          },
+          "settings": {
+            "topic": "tflopics2"
+          }
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "id": "flow:mqtt_item",
+      "data": {
+        "name": "MqttItem",
+        "metadata": {
+          "input": [
+            {
+              "name": "debugJson",
+              "type": "any"
+            },
+            {
+              "name": "mqttMsg",
+              "type": "params"
+            }
+          ]
+        },
+        "tasks": [
+          {
+            "id": "mqtt_2",
+            "name": "Send MQTT Message",
+            "description": "Pubishes message on MQTT topic",
+            "activity": {
+              "ref": "github.com/jvanderl/flogo-components/activity/mqtt",
+              "input": {
+                "broker": "tcp://localhost:1883",
+                "id": "flogoResponder",
+                "qos": "2",
+                "message": "MqResponse: FlogoWebItm"
+              },
+              "mappings": {
+                "input": [
+                  {
+                    "type": "assign",
+                    "value": "$flow.mqttMsg.respond_to",
+                    "mapTo": "topic"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "flow:testing_json_receive",
+      "data": {
+        "name": "TestingJsonReceive",
+        "metadata": {
+          "input": [
+            {
+              "name": "jsonInput",
+              "type": "params"
+            }
+          ]
+        },
+        "tasks": [
+          {
+            "id": "log_2",
+            "name": "MyTestingLogger",
+            "description": "Simple Log Activity",
+            "activity": {
+              "ref": "github.com/TIBCOSoftware/flogo-contrib/activity/log",
+              "input": {
+                "flowInfo": "false",
+                "addToFlow": "false"
+              },
+              "mappings": {
+                "input": [
+                  {
+                    "type": "expression",
+                    "value": "string.concat(\"LOG RESPONDING: \", $flow.jsonInput.respond_to)",
+                    "mapTo": "message"
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

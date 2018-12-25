@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="RunFlowDebug" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="node" path-to-js-file="release.js" working-dir="$PROJECT_DIR$/../installs/flow1">
+    <method v="2" />
+  </configuration>
+</component>
