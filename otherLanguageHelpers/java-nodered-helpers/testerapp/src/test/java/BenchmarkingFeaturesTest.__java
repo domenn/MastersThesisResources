@@ -1,0 +1,238 @@
+import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.eclipse.paho.client.mqttv3.MqttMessage;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
+import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+
+import static TestHelpers.MqttHelperKt.betterSubscribeMqtt;
+import static TestHelpers.MqttHelperKt.subscribeMqtt;
+
+/**
+ * @author Domen Mori 30/04/2018.
+ */
+class BenchmarkingFeaturesTest {
+
+    public static final String TOPIC_NODERED = "nodered";
+    public static final String TOPIC_NODERED_REPLY = "nodered_reply";
+    private static MqttClient client;
+    private static Random random;
+
+    private static Random getRandom() {
+        if (random == null) {
+            synchronized (TOPIC_NODERED) {
+                if (random == null) {
+                    random = new Random();
+                }
+            }
+        }
+        return random;
+    }
+
+    /**
+     * This version supports only single response test
+     * @param resetCommand command to reset test state
+     * @param assertExpect expected value that will be returned at the end
+     * @param cmds sequence of commands to send
+     * @throws MqttException Can be ignored for unit testing.
+     * @throws InterruptedException Can be ignored for unit testing.
+     */
+    private void doTestOverMqtt(String resetCommand, String assertExpect, String... cmds) throws MqttException, InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(1);
+        final String[] response = new String[1];
+        //MqttTopic topic = client.getTopic("nodered_reply");
+        subscribeMqtt(latch, response, client, TOPIC_NODERED_REPLY);
+        // set the value
+        for (String cmd : cmds) {
+            client.publish(TOPIC_NODERED, new MqttMessage(cmd.getBytes()));
+        }
+        latch.await(600, TimeUnit.MILLISECONDS);
+        Assertions.assertEquals(assertExpect, response[0]);
+        // reset the value
+        if(resetCommand != null) {
+            client.publish(TOPIC_NODERED, new MqttMessage(resetCommand.getBytes()));
+        }
+    }
+
+    /**
+     * Calling this is a bit complicated, but design process was simple.
+     * @param resetCommand command to reset at the end.
+     * @param checks "associative array" - even values are commands, odd are expected response.
+     * @param cmds all the commands that need to be sent.
+     * @throws MqttException Can be ignored for unit testing.
+     * @throws InterruptedException Can be ignored for unit testing.
+     */
+    private void betterTestOverMqtt(String resetCommand, String [] checks, String... cmds) throws MqttException, InterruptedException {
+        final CountDownLatch latch = new CountDownLatch(checks.length / 2);
+        final String[] responses = new String[checks.length / 2];
+        //MqttTopic topic = client.getTopic("nodered_reply");
+        betterSubscribeMqtt(latch, responses, client, TOPIC_NODERED_REPLY);
+        // set the value
+        for (String cmd : cmds) {
+            client.publish(TOPIC_NODERED, new MqttMessage(cmd.getBytes()));
+        }
+        for (int i = 0; i<checks.length; i += 2) {
+            client.publish(TOPIC_NODERED, new MqttMessage(checks[i].getBytes()));
+            Thread.sleep(10);
+        }
+
+        latch.await(600, TimeUnit.MILLISECONDS);
+        for (int i = 0; i<checks.length; i += 2) {
+            Assertions.assertEquals(checks[i+1], responses[i/2]);
+        }
+
+        // reset the value
+        if(resetCommand != null) {
+            client.publish(TOPIC_NODERED, new MqttMessage(resetCommand.getBytes()));
+        }
+    }
+
+    @BeforeAll
+    private static void initMqtt() throws MqttException {
+        client = new MqttClient("tcp://localhost:1883", MqttClient.generateClientId());
+        client.connect();
+    }
+
+    @AfterAll
+    private static void disassembleMqtt() {
+        try {
+            client.disconnect();
+        } catch (MqttException | NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    void testSetAndReadValue() throws MqttException, InterruptedException {
+        final String v = "set primary my the string";
+        final String query = "check primary";
+        final String resetCmd = "set primary test0Done";
+        final String myTheString = "my the string";
+        doTestOverMqtt(resetCmd, myTheString, v, query);
+    }
+
+    @Test
+    void testAddAndRead() throws MqttException, InterruptedException {
+        final String set = "set accumulator 18";
+        final String add1 = "add accumulator 4";
+        final String add2 = "add accumulator -12";
+        final String check = "check accumulator"; // must be 10
+        final String expectedResult = "10";
+        final String resetCommand = "set accumulator 1";
+        doTestOverMqtt(resetCommand, expectedResult, set, add1, add2, check);
+    }
+
+    /*TODO
+    test timeout
+     ...
+     */
+
+    /**
+     * Adds number to field that is text. Node-red should throw exception.
+     *
+     * Command parses at parseCommand node. Switch will send it to output 3 since it is add. Becouse it is add, multiple
+     * checks will have been made: ThrowIfNan, isNumberField. If all correct, add handler will handle.
+     * <p>
+     * In this case, is NumberField throws. That is expected result.
+     */
+    @Test
+    void testInvalidAdd() throws MqttException, InterruptedException {
+        String str = String.valueOf(getRandom().nextInt(10000));
+        final String set = "set secondary wrong";
+        final String add1 = "add secondary 4" + str;
+        final String check = "check secondary"; // must be still wrong
+        final String expected = "wrong";
+        final String reset = "set secondary from test secondary val";
+        doTestOverMqtt(reset, expected, set, add1, check);
+        // Check database value to see if correct exception got written
+        String sqlQueryCommand = "sql select MsgPayload from ExceptionTable order by TimeStamp desc limit 1";
+        doTestOverMqtt(null, add1, sqlQueryCommand);
+    }
+
+
+    /**
+     * Tries to add to number field, but uses text value instead of number. Node-red should throw exception.
+     */
+    @Test
+    void testImpossibleAdd() throws MqttException, InterruptedException {
+        final String set = "set counter 45";
+        final String add1 = "add counter not a number";
+        final String check = "check counter"; // must be still 45
+        final String reset = "set counter 0";
+        doTestOverMqtt(reset, "45", set, add1, check);
+        // Check database value to see if correct exception got written
+        String sqlQueryCommand = "sql select MsgPayload from ExceptionTable order by TimeStamp desc limit 1";
+        doTestOverMqtt(null, add1, sqlQueryCommand);
+    }
+
+    /**
+     * Sends command that doesn't exist. Check db if correct error is written..
+     */
+    @Test
+    void testUnknownCommand() throws MqttException, InterruptedException {
+        String str = String.valueOf(getRandom().nextInt(10000));
+        final String set = "make counter 45" + str;
+        final String queryDb = "sql select ErrorMessage from ExceptionTable order by TimeStamp desc limit 1";
+        doTestOverMqtt(null, "Unknown command", set, queryDb);
+    }
+
+    /**
+     * Sends unsupported SQL statment
+     */
+    @Test
+    void testUnsupportedSql() throws MqttException, InterruptedException {
+        String str = String.valueOf(getRandom().nextInt(10000));
+        final String set = "sql alter table ExceptionTable drop column Timestamp";
+        final String queryDb = "sql select ErrorMessage from ExceptionTable order by TimeStamp desc limit 1";
+        doTestOverMqtt(null, "Unsupported SQL expression: alter", set, queryDb);
+    }
+
+    /**
+     * Try setting text to number
+     */
+    @Test
+    void testSetTextToNumber() throws MqttException, InterruptedException {
+        String str = String.valueOf(getRandom().nextInt(10000));
+        final String prepareSet = "set counter " + str;
+        final String set = "set counter textvalue" + str;
+        final String queryDb = "sql select ErrorMessage from ExceptionTable order by TimeStamp desc limit 1";
+        final String expectedDbErrorValue = "Text value cannot be written into number field!";
+        betterTestOverMqtt(null, new String[]{
+                "check counter", str,
+                queryDb, expectedDbErrorValue
+        }, prepareSet, set);
+    }
+
+    /**
+     * Try setting something to unexisting field
+     */
+    @Test
+    void testSetToUnexisting() throws MqttException, InterruptedException {
+        String str = String.valueOf(getRandom().nextInt(10000));
+        final String set = "set _44qNever"+ str + " one";
+        final String queryDb = "sql select ErrorMessage from ExceptionTable order by TimeStamp desc limit 1";
+        final String expectedDbErrorValue = "field named _44qNever"+ str + " doesn't exist!";
+        betterTestOverMqtt(null, new String[]{
+                queryDb, expectedDbErrorValue
+        }, set);
+    }
+
+    /**
+     * Try <b>getting</b> some unexisting field
+     */
+    @Test
+    void testGetUnexisting() throws MqttException, InterruptedException {
+        String str = String.valueOf(getRandom().nextInt(10000));
+        final String set = "check _45qNever"+ str;
+        final String queryDb = "sql select ErrorMessage from ExceptionTable order by TimeStamp desc limit 1";
+        final String expectedDbErrorValue = "field named _45qNever"+ str + " doesn't exist!";
+        betterTestOverMqtt(null, new String[]{
+                queryDb, expectedDbErrorValue
+        }, set);
+    }
+}

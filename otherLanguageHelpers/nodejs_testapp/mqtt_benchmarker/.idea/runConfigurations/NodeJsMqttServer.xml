@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="NodeJsMqttServer" type="NodeJSConfigurationType" factoryName="Node.js" application-parameters="--measure 30000 --server_topic njssrv" path-to-js-file="smqttapp.js" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>

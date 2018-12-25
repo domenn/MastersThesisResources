@@ -1,0 +1,49 @@
+package TestHelpers
+
+import org.eclipse.paho.client.mqttv3.*
+import java.util.concurrent.CountDownLatch
+
+// Use this annotation so you can call it from Java code like StringUtil.
+//@file:JvmName("MqttHelper")
+
+@Throws(MqttException::class)
+fun subscribeMqtt(latch: CountDownLatch, response: Array<String>, client: MqttClient, replyTopic: String) {
+    client.setCallback(object : MqttCallback {
+        override fun connectionLost(throwable: Throwable) {
+
+        }
+
+        @Throws(Exception::class)
+        override fun messageArrived(s: String, mqttMessage: MqttMessage) {
+            response[0] = mqttMessage.toString()
+            latch.countDown()
+        }
+
+        override fun deliveryComplete(iMqttDeliveryToken: IMqttDeliveryToken) {
+
+        }
+    })
+    client.subscribe(replyTopic, 0)
+}
+
+@Throws(MqttException::class)
+fun betterSubscribeMqtt(latch: CountDownLatch, responses: Array<String>, client: MqttClient, replyTopic: String) {
+    client.setCallback(object : MqttCallback {
+        override fun connectionLost(throwable: Throwable) {
+
+        }
+
+        private var responseIndex: Int = 0
+
+        @Throws(Exception::class)
+        override fun messageArrived(s: String, mqttMessage: MqttMessage) {
+            responses[responseIndex++] = mqttMessage.toString()
+            latch.countDown()
+        }
+
+        override fun deliveryComplete(iMqttDeliveryToken: IMqttDeliveryToken) {
+
+        }
+    })
+    client.subscribe(replyTopic, 0)
+}

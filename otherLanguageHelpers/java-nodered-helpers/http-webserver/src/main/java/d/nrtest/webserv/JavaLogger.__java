@@ -1,0 +1,19 @@
+package d.nrtest.webserv;
+
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+/**
+ * @author Domen Mori 22/08/2018.
+ */
+public class JavaLogger {
+
+    public static String exception(String text, Throwable exception) {
+        return text + ": "
+                + exception
+                + Arrays.stream(exception.getStackTrace())
+                .map(Objects::toString)
+                .collect(Collectors.joining("\n"));
+    }
+}

@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MqttClientToFlow" type="NodeJSConfigurationType" factoryName="Node.js" application-parameters="--server_topic tjsflow --measure 2500 --number_runners 3" path-to-js-file="clientMqttApp.js" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>

@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="HttpSpammerToGo" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="d.nrtest.httpclient.HttpSpammerTest" />
+    <module name="testerapp" />
+    <option name="PROGRAM_PARAMETERS" value="--end_cnt 3000 --sleep 40000 --ip http://127.0.0.1:31011/goserv" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

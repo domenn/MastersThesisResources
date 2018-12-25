@@ -1,0 +1,13 @@
+package TestHelpers
+
+import java.util.concurrent.CountDownLatch
+
+class ResettableCountdownLatch() {
+
+    var theLatch: CountDownLatch
+
+    init {
+        this.theLatch = CountDownLatch(1)
+    }
+
+}

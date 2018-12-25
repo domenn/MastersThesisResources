@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ArraysBenchmarkLinux" type="NodeJSConfigurationType" factoryName="Node.js" application-parameters="--file_path $PROJECT_DIR$/../../../nodered_resources/d_resources/b_ignore/stringsGen1.2M_32.txt" path-to-js-file="arrays_benchmark.js" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>

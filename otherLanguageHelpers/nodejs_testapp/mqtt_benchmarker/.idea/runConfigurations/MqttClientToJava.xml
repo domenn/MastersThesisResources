@@ -1,0 +1,5 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MqttClientToJava" type="NodeJSConfigurationType" factoryName="Node.js" application-parameters="--server_topic javamqtts --measure 1200" path-to-js-file="clientMqttApp.js" working-dir="$PROJECT_DIR$">
+    <method v="2" />
+  </configuration>
+</component>

@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="FlogoMqttServer_dbg" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <module name="mqttRunner" />
+    <working_directory value="$PROJECT_DIR$/build" />
+    <envs>
+      <env name="FLOGO_LOG_LEVEL" value="DEBUG" />
+    </envs>
+    <kind value="FILE" />
+    <filePath value="$PROJECT_DIR$/cmd/FlogoMqttServer/run.go" />
+    <package value="mqttRunner" />
+    <directory value="$PROJECT_DIR$/" />
+    <method v="2" />
+  </configuration>
+</component>
